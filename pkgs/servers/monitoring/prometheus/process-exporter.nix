@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   pname = "process-exporter";
-  version = "0.5.0";
+  version = "0.7.2";
 
   goPackagePath = "github.com/ncabatoff/process-exporter";
 
@@ -10,7 +10,7 @@ buildGoPackage rec {
     owner = "ncabatoff";
     repo = pname;
     rev = "v${version}";
-    sha256 = "129vqry3l8waxcyvx83wg0dvh3qg4pr3rl5fw7vmhgdzygbaq3bq";
+    hash = "sha256-e6ZjbaDW0QJ8yCzSa6kbTVYAnKxpcvogiLWTCmyHS6s=";
   };
 
   postPatch = ''

@@ -1,4 +1,4 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ stdenv, buildGoPackage, fetchFromGitHub, makeWrapper, zfs }:
 
 buildGoPackage rec {
   pname = "cadvisor";
@@ -16,6 +16,12 @@ buildGoPackage rec {
   subPackages = [ "." ];
 
   buildFlagsArray = [ "-ldflags=-s -w -X github.com/google/cadvisor/version.Version=${version}" ];
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  postInstall = ''
+    wrapProgram $out/bin/cadvisor --prefix PATH : ${stdenv.lib.makeBinPath [ zfs ]}
+  '';
 
   meta = with stdenv.lib; {
     description = "Analyzes resource usage and performance characteristics of running docker containers";

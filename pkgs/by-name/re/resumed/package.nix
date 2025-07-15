@@ -7,16 +7,20 @@
 
 buildNpmPackage rec {
   pname = "resumed";
-  version = "4.1.0";
+  version = "6.0.0";
 
   src = fetchFromGitHub {
     owner = "rbardini";
     repo = "resumed";
     rev = "v${version}";
-    hash = "sha256-kDv6kOVY8IfztmLeby2NgB5q0DtP1ajMselvr1EDQJ8=";
+    hash = "sha256-K9F6ZxtqAQSc5Dqeoysish+xeRqDcDG/6Ynx7bTJfl8=";
   };
 
-  npmDepsHash = "sha256-7Wdf8NaizgIExeX+Kc8wn5f20al0bnxRpFoPy6p40jw=";
+  npmDepsHash = "sha256-UElS1pEzPv0FnvMGCnqEFBi7JzE8QWRFynkAPHy35FY=";
+
+  env = {
+    PUPPETEER_SKIP_DOWNLOAD = true;
+  };
 
   passthru.updateScript = nix-update-script { };
 

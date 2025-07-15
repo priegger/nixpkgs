@@ -3,6 +3,7 @@
   buildNpmPackage,
   fetchFromGitHub,
   nix-update-script,
+  testers,
 }:
 
 buildNpmPackage (finalAttrs: {
@@ -18,11 +19,21 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsHash = "sha256-UElS1pEzPv0FnvMGCnqEFBi7JzE8QWRFynkAPHy35FY=";
 
+  postPatch = ''
+    sed -i 's/"version": ".*"/"version": "${finalAttrs.version}"/' package.json
+  '';
+
   env = {
     PUPPETEER_SKIP_DOWNLOAD = true;
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    tests.version = testers.testVersion {
+      inherit (finalAttrs) version;
+      package = finalAttrs.finalPackage;
+    };
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Lightweight JSON Resume builder, no-frills alternative to resume-cli";

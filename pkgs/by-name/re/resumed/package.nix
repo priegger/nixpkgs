@@ -29,7 +29,7 @@ buildNpmPackage (finalAttrs: {
       --set PUPPETEER_EXECUTABLE_PATH ${chromium}/bin/chromium
   '';
 
-  npmPruneFlags = [ "--omit=peer" ];
+  npmPruneFlags = [ "--omit=optional" ];
 
   env = {
     PUPPETEER_SKIP_DOWNLOAD = true;

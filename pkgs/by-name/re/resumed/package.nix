@@ -4,6 +4,7 @@
   fetchFromGitHub,
   nix-update-script,
   testers,
+  chromium,
 }:
 
 buildNpmPackage (finalAttrs: {
@@ -21,6 +22,11 @@ buildNpmPackage (finalAttrs: {
 
   postPatch = ''
     sed -i 's/"version": ".*"/"version": "${finalAttrs.version}"/' package.json
+  '';
+
+  postInstall = ''
+    wrapProgram $out/bin/resumed \
+      --set PUPPETEER_EXECUTABLE_PATH ${chromium}/bin/chromium
   '';
 
   env = {

@@ -24,12 +24,13 @@ buildNpmPackage (finalAttrs: {
     sed -i 's/"version": ".*"/"version": "${finalAttrs.version}"/' package.json
   '';
 
+/*
   postInstall = ''
     wrapProgram $out/bin/resumed \
       --set PUPPETEER_EXECUTABLE_PATH ${chromium}/bin/chromium
   '';
-
-  npmPruneFlags = [ "--omit=optional" ];
+*/
+  dontNpmPrune = true;
 
   env = {
     PUPPETEER_SKIP_DOWNLOAD = true;

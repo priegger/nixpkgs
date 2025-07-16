@@ -24,12 +24,6 @@ buildNpmPackage (finalAttrs: {
     sed -i 's/"version": ".*"/"version": "${finalAttrs.version}"/' package.json
   '';
 
-/*
-  postInstall = ''
-    wrapProgram $out/bin/resumed \
-      --set PUPPETEER_EXECUTABLE_PATH ${chromium}/bin/chromium
-  '';
-*/
   dontNpmPrune = true;
 
   env = {
